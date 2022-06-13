@@ -91,6 +91,7 @@ namespace app
         ListNode l1 = headA;
         ListNode l2 = headB;
         
+        
         while(l1 != l2){
             if(l1 == null){
                 l1 = headB;
@@ -103,6 +104,28 @@ namespace app
             l2 = l2.next;
         }
         return l1;
+    }
+
+    public ListNode RemoveNthFromEnd(ListNode head, int n){
+        if(head == null) return null;
+         
+         ListNode start = new ListNode(-1);
+         start.next = head;
+         ListNode left = start;
+         ListNode right = start;
+       
+        var numb = n + 1;
+        
+        
+        while(right != null ){
+            right = right.next;
+            if(numb <= 0){
+                left = left.next;
+            }
+             numb = numb - 1;
+        }
+        left.next = left.next.next;
+        return start.next;
     }
         
     }
