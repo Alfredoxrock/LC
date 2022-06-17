@@ -127,6 +127,17 @@ namespace app
         left.next = left.next.next;
         return start.next;
     }
+
+    public ListNode ReverseList(ListNode head){
+        ListNode previous = null;
+        while(head != null){
+            ListNode next = head.next;
+            head.next = previous;
+            previous = head; 
+            head = next;
+        }
+        return previous;
+    }
         
     }
 }
