@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace app
 {
@@ -6,10 +7,72 @@ namespace app
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string[] words = { "bot", "apple", "apricot" };
+            int minimalLength = words
+            .Where(w => w.StartsWith("a"))
+            .Min(w => w.Length);
+            Console.WriteLine(minimalLength);
+
+            Console.WriteLine("-----------------------------");
+
+            int[] numbers = { 4, 7, 10 };
+            int product = numbers.Aggregate(1, (int interim, int next) => interim * next);
+            Console.WriteLine(product);   
+
+            Console.WriteLine("-----------------------------");
+
+            Func<string> greet = () => "Hello, World!";
+            Console.WriteLine(greet());
+
+            Console.WriteLine("-----------------------------");
+
+            string name = Console.ReadLine() => Conslle.WriteLine("Hello" + name);
+
+
+            Console.ReadKey();
         }
 
+        //How to flatten a multi-level double-linked list
+        public Node Flatten(Node head) {
+        Stack<Node> myStack = new Stack<Node>();
+        Node current = head;
+        
+        while(current != null){
+            if(current.child != null){
+                if(current.next != null){
+                    myStack.Push(current.next);
+                    current.next.prev = null;
+                }
+                 current.next = current.child;
+                 current.child.prev = current;
+                 current.child = null;
+            }
+            if(current.next != null){
+                current = current.next;
+            }
+            else{
+                break;
+            }
+            
+        }
+        
+        while(myStack.Count != 0){
+            current.next = myStack.Peek();
+            myStack.Pop();
+            current.next.prev = current;
+            while(current != null && current.next != null)
+            {
+                current = current.next;
+            }
+        }
+        
+        return head;
+    }
 
+
+
+
+/*
        public static bool HasCycle(ListNode head){
         if (head == null) return false;
         // Create a temporary node
@@ -68,6 +131,8 @@ namespace app
         }
         
         return fast;*/
+
+        /*
         
         ListNode origin = head;
         slow = slow.next;
@@ -157,6 +222,8 @@ namespace app
         
         return head;
     }
+    */
+
         
     }
 }
