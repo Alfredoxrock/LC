@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections;
 
 namespace app
 {
@@ -31,6 +32,39 @@ namespace app
 
             Console.ReadKey();
         }
+
+        //Made a deep copy of a list node with variables val, next and random
+        public Node CopyRandomList(Node head) {
+        if(head == null) return null;
+        Dictionary<Node,Node> oldToNew = new Dictionary<Node,Node>();
+        
+        Node current = head;
+        
+        while(current != null){
+            Node copy = new Node(current.val);
+            oldToNew[current] = copy;
+            current = current.next;
+        }
+        
+        
+        
+        current = head;
+        while(current != null){
+            Node copy2 = oldToNew[current];
+            
+            if(current.next != null){
+                copy2.next = oldToNew[current.next];
+            }
+            if(current.random != null){
+                 copy2.random = oldToNew[current.random];
+            }
+           
+            current = current.next;
+        }
+        
+        
+        return oldToNew[head];
+    }
 
         //How to flatten a multi-level double-linked list
         public Node Flatten(Node head) {
