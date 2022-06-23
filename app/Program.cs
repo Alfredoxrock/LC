@@ -36,33 +36,51 @@ namespace app
         //Made a deep copy of a list node with variables val, next and random
         public Node CopyRandomList(Node head) {
         if(head == null) return null;
+        //I am going to use a hash table to create the deep copy of the list.
         Dictionary<Node,Node> oldToNew = new Dictionary<Node,Node>();
         
+        //I'm setting the current node to the head
         Node current = head;
         
+        //Here I am creating a copy of all the nodes but not the pointers, they
+        //I only assigned the value to the new nodes because the value is going to be
+        //a reference from the original nodes to the hash table nodes
         while(current != null){
+            //Create a node copy and is asigned a value
             Node copy = new Node(current.val);
+            //the current node is referencing the copy node
             oldToNew[current] = copy;
+            //To traverse one node in each iteration
             current = current.next;
         }
         
         
-        
+        //In this part I'm going to copy the pointers
         current = head;
+        //I point the current node to the beginning which is the head node
         while(current != null){
+            //Here the statement says that the loop is going to break when the current node 
+            //reaches the null node but also says that the current node cannot be null
+            //That's why I made the following if statements to bypass the loop statement
+            
+            //I'm making the nodes in the hash table point to the new nodes
             Node copy2 = oldToNew[current];
             
+            //The new next pointers are going to be the same as the hash table
             if(current.next != null){
                 copy2.next = oldToNew[current.next];
             }
+            //The new random pointers are going to be the same as the hash table
             if(current.random != null){
                  copy2.random = oldToNew[current.random];
             }
            
+            //To traverse one node in each iteration
             current = current.next;
         }
         
-        
+        //Because the hash table references the new list node I return the hash table
+        //and asigned the head node which is the first node otherwise it will return null
         return oldToNew[head];
     }
 
