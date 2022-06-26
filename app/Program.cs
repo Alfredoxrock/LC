@@ -33,6 +33,55 @@ namespace app
             Console.ReadKey();
         }
 
+        /*public ListNode RotateRight(ListNode head, int k) {
+        if(head == null) return null;
+        if(k == 0) return head;
+        ListNode rev = ReverseListNode(head, null);
+        int count = 0;
+        
+        while(rev != null){
+            rev = rev.next;
+        }
+        
+        ListNode tail = rev;
+        rev = head;
+        
+        while(rev != null){
+            if(count == k){
+                ReverseListNode(rev.next, rev);
+            }
+            rev = rev.next;
+            count++;
+        }
+        rev = head;
+        while(rev != null){
+            if(count == k - 1){
+                rev.next = tail;
+            }
+            rev = rev.next;
+        }
+        rev = head;
+        return rev;
+            
+        
+        
+    }
+
+         /*static ListNode ReverseListNode(ListNode head, ListNode prev){
+        ListNode curr = prev;
+        ListNode n = head;
+        while(curr != null && n != null){
+             curr = n;
+             n = n.next;
+             curr.next = prev;
+             prev = curr;
+        }
+        curr = head;
+        
+        return curr;
+        
+    }*/
+
         //Made a deep copy of a list node with variables val, next and random
         public Node CopyRandomList(Node head) {
         if(head == null) return null;
@@ -84,6 +133,54 @@ namespace app
         return oldToNew[head];
     }
 
+        /*
+        public IList<IList<int>> Generate(int numRows) {
+        
+             //First I create an empty array of arrays.
+             IList<IList<int>> result = new List<IList<int>>();
+             
+             //Create a failsafe in case rows is < 1
+             if(numRows == 0){
+                 return result;
+             }
+        
+             //Create an array for each row
+             for(int r = 0; r < numRows; r++){
+                 List<int> row = new List<int>();
+                 for(int c = 0; c < r + 1; c++){
+                     row.Add(0);
+                 }
+                 result.Add(row);
+                 
+             }
+        
+             //Previous part: It creates the rows of the triangle.
+             //Next part: Fill in the values.
+             
+             result[0][0] = 1;
+        
+             
+             //To loop through the empty spaces and add the values
+             for(int row = 0; row < numRows - 1; row++){
+                 for(int col = 0; col < result[row].Count; col++){
+                     result[row + 1][col] = result[row + 1][col] + result[row][col];
+                     result[row + 1][col + 1] = result[row + 1][col + 1] + result[row][col];
+                 }
+             }
+             
+             return result;
+        
+            
+            
+            
+            
+        
+        
+        
+        
+    }
+        */
+
         //How to flatten a multi-level double-linked list
         public Node Flatten(Node head) {
         Stack<Node> myStack = new Stack<Node>();
@@ -120,6 +217,8 @@ namespace app
         
         return head;
     }
+
+
 
 
 
