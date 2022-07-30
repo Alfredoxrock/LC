@@ -8,17 +8,79 @@ namespace ArrayStudy {
 
     public class Testing {
 
+    	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {9, 4, -2, -1, 5, 0, -5, -3, 2};
+			int[] nums = new int[] {-1,-2,-3,-4};
 		    
-		    alternatePositiveAndnegativeNumebers(nums);
-
-		    foreach(int n in nums){
-		    	Console.Write(n + " , ");
-		    }
+		    Console.Write(findFactorialBigNumber(10));
 
 			Console.ReadKey();
+		}
+
+		public static int findFactorialBigNumber(int num){
+			int factorial = 1;
+			for(int i = 1; i < num + 1; i++){
+				factorial = factorial * i;
+			}
+
+			return factorial;
+		}
+
+		public static int maximumSumSubarray(int[] arr){
+			Queue<int> subArrays = new Queue<int>();
+
+			int sum = 0;
+			for(int i = 0; i < arr.Length; i++){
+				sum = 0;
+				subArrays.Enqueue(arr[i]);
+				for(int j = i; j < arr.Length; j++){
+					sum = sum + arr[j];
+					subArrays.Enqueue(sum);
+				}
+			}
+
+			int[] newArr = new int[subArrays.Count];
+			for(int x = 0; x < newArr.Length; x++){
+				newArr[x] = subArrays.Peek();
+				subArrays.Dequeue();
+			}
+
+			Sortt(newArr);
+
+			return newArr[newArr.Length - 1]; 
+
+		}
+
+		public static string subarrayWithSumZero(int[] arr){
+
+			int count = 0;
+			int sum = 0;
+			for(int i = 0; i < arr.Length; i++){
+				sum = 0;
+				for(int j = i + 1; j < arr.Length; j++){
+					sum = sum + arr[j];
+					if(sum == 0){
+						count++;
+					}
+				}
+			}
+
+			for(int x = 0; x < arr.Length; x++){
+				if(arr[x] == 0){
+					count++;
+				}
+			}
+
+			if(count > 0){
+				return "Yes";
+			}
+			if(count == 0){
+				return "No";
+			}
+
+			return "no";
+
 		}
 
 		public static int[] alternatePositiveAndnegativeNumebers(int[] arr){
