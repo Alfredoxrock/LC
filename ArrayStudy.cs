@@ -10,18 +10,101 @@ namespace ArrayStudy {
 
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {3,4,5,7,8,9,10};
-			int[] nums2 = new int[] {3,4,5,6,7,8};
+			int[] nums = new int[] {8,2,15,3,8,9,10,3,7,5,6,1,11,4};
+			int[] nums2 = new int[] {-1,2,-1,3,2};
+			Console.WriteLine(firstNonRepeatingElement(nums2));
 
-			int[] my = findPairSumUpToTarget(nums, 17);
-			foreach(int a in my){
-				Console.WriteLine(a);
-			}
 
 			Console.ReadKey();
 		}
 
-		
+
+
+		public static int firstNonRepeatingElement(int[] arr){
+			//Variable to store the xor result of my array
+			int single = arr[0];
+
+			//I will start at the second index and xor all the values
+			for(int i = 1; i < arr.Length; i++){
+				single = single ^ arr[i];
+			}
+
+			return single;
+		}
+
+		public static int firstRepeatingElement(int[] arr){
+			for(int i = 0; i < arr.Length; i++){
+				for(int j = i + 1; j < arr.Length; j++){
+					if(arr[i] == arr[j]){
+						return arr[i];
+					}
+				}
+			}
+
+			return -1;
+		}
+
+		public static int[] FindCommonNumbers(int[] arr, int[] arr2, int[] arr3){
+			int[] newArr = intersectionOfTwoArrays(arr,arr2);
+			int[] lastArr = intersectionOfTwoArrays(newArr, arr3);
+
+			return lastArr;
+		}
+
+		public static void quickSort(int[] arr, int start, int end){
+			
+
+			int pivot = partition(arr, start, end);
+			Console.WriteLine("Pivot: " + pivot);
+			//Console.WriteLine("Start: " + start + " End: " + end);
+			quickSort(arr, start, pivot);
+			quickSort(arr, pivot + 1, end);
+			
+		}
+
+		public static int partition(int[] arr, int start, int end){
+			int pivot = arr[end];
+			int i = start - 1;
+			int temp;
+
+
+			for(int j = start; j <= end - 1; j++){
+				if(arr[j] < pivot){
+					i++;
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+			}
+			i++;
+
+			temp = arr[i];
+			arr[i] = arr[end];
+			arr[end] = temp;
+
+			return i;
+		}
+
+		public static int[] findDuplicatesInArray(int[] arr){
+			Queue<int> myNums = new Queue<int>();
+
+			for(int i = 0; i < arr.Length; i++){
+				for(int j = i + 1; j < arr.Length; j++){
+					if(arr[i] == arr[j]){
+						myNums.Enqueue(arr[i]);
+					}
+				}
+			}
+
+			int[] duplicates = new int[myNums.Count];
+			for(int x = 0; x < duplicates.Length; x++){
+				duplicates[x] = myNums.Peek();
+				myNums.Dequeue();
+			}
+
+			return duplicates;
+
+		}
 
 		public static int[] findPairSumUpToTarget(int[] arr, int target){
 			int[] myNums = new int[2];
