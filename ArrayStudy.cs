@@ -10,14 +10,85 @@ namespace ArrayStudy {
 
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {8,2,15,3,8,9,10,3,7,5,6,1,11,4};
-			int[] nums2 = new int[] {-1,2,-1,3,2};
-			Console.WriteLine(firstNonRepeatingElement(nums2));
+			int[] nums = new int[] {9, 4, -2, -1, 5, 0, -5, -3, 2};
+		    
+		    alternatePositiveAndnegativeNumebers(nums);
 
+		    foreach(int n in nums){
+		    	Console.Write(n + " , ");
+		    }
 
 			Console.ReadKey();
 		}
 
+		public static int[] alternatePositiveAndnegativeNumebers(int[] arr){
+			//Move all the positive numebrs to a queue
+			Queue<int> pos = new Queue<int>();
+			Queue<int> neg = new Queue<int>();
+
+			for(int i = 0; i < arr.Length; i++){
+				if(arr[i] > -1){
+					pos.Enqueue(arr[i]);
+				}
+				else{
+					neg.Enqueue(arr[i]);
+				}
+			}
+
+			//neg and pos are in the queues
+			int[] newArr = new int[arr.Length];
+			for(int j = 0; j < newArr.Length; j++){
+				if( j % 2 == 0){
+					arr[j] = pos.Peek();
+					pos.Dequeue();
+				}
+				if(j % 2 == 1){
+					arr[j] = neg.Peek();
+					neg.Dequeue();
+				}
+			}
+
+			return newArr;
+
+		}
+
+
+		public static int SubarraysEqualOnesAndZeros(int[] arr){
+
+			//converts all the zeros to -1
+			for(int x = 0; x < arr.Length; x++){
+				if(arr[x] == 0){
+					arr[x] = -1;
+				}
+			}
+
+			//The variables count and sum that I will need
+			int count = 0;
+			int sum = 0;
+
+
+			for(int i = 0; i < arr.Length; i++){
+				//Reset sum every iteration of i
+				sum = 0;
+				for(int j = i + 1; j < arr.Length; j++){
+
+					//Basically I will initialize my sum with the value of arr[i]
+					if( j - i == 1){
+						sum = arr[i];
+					}
+					//Here I will be adding arr[j] to the sum so it will get the sum of the
+					//subset
+					sum = sum + arr[j];
+
+					//When my sum equals zero it will add 1 to count
+					if(sum == 0){
+						count++;
+					}
+				}
+			}
+
+			return count;
+		}
 
 
 		public static int firstNonRepeatingElement(int[] arr){
