@@ -11,11 +11,85 @@ namespace ArrayStudy {
     	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {2, 3, 4, 5, -1, 0};
+			int[] nums = new int[] {8,3,1,2};
 		    
-		    Console.Write(maximumProductSubarray(nums));
+		    Console.Write(maxSumOfConfiguration(nums));
 
 			Console.ReadKey();
+		}
+
+		public static int maxSumOfConfiguration(int[] arr){
+			Queue<int> sums = new Queue<int>();
+
+			int sum = 0;
+
+			for(int i = 0; i < arr.Length; i++){
+
+				reverseArrLeftRight(arr, 0, arr.Length - 1);
+				reverseArrLeftRight(arr, 0, arr.Length - 2);
+				for(int j = 0; j < arr.Length; j++){
+					sum = sum + (arr[j] * j);
+				}
+				sums.Enqueue(sum);
+				sum = 0;
+			}
+
+			int[] sorted = new int[sums.Count];
+			for(int x = 0; x < sorted.Length; x++){
+				sorted[x] = sums.Peek();
+				sums.Dequeue();
+			}
+
+			Sortt(sorted);
+			return sorted[sorted.Length - 1];
+			
+		}
+
+		public static int[] reverseArrLeftRight(int[] arr, int left, int right){
+
+			int temp;
+			for(int i = left, j = right; i < j; i++, j--){
+				temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+
+			return arr;
+		}
+
+		public static int minimumElementinRotatedSortedArray(int[] arr){
+			Sortt(arr);
+			return arr[0];
+		}
+
+		public static int longestConsecutiveSequence(int[] arr){
+			//Sort the array
+			Sortt(arr);
+
+			Queue<int> myCounts = new Queue<int>();
+
+			int count = 1;
+
+			for(int i = 1; i < arr.Length; i++){
+				if(arr[i] - arr[i - 1] == 1){
+					count++;
+					myCounts.Enqueue(count);
+				}
+				else{
+					count=1;
+				}
+			}
+
+			int[] newArr = new int[myCounts.Count];
+
+			for(int j = 0; j < newArr.Length; j++){
+				newArr[j] = myCounts.Peek();
+				myCounts.Dequeue();
+			}
+
+			Sortt(newArr);
+			return newArr[newArr.Length - 1];
+
 		}
 
 		public static int maximumProductSubarray(int[] arr){
