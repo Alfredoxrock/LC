@@ -11,11 +11,141 @@ namespace ArrayStudy {
     	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {3, 9, 12, 16, 20};
+			int[] nums = new int[] {1,2,3,4,5};
 
-		    Console.Write(minimizeTheTowerHeights(nums,3));
+		    Console.WriteLine(smallerPositiveMissingNumber(nums));
 
 			Console.ReadKey();
+		}
+
+		public static int smallerPositiveMissingNumber(int[] arr){
+			Queue<int> pos = new Queue<int>();
+
+			Sortt(arr);
+
+			for(int x = 0; x < arr.Length; x++){
+				if(arr[x] > 0){
+					pos.Enqueue(arr[x]);
+				}
+			}
+
+			int[] positive = new int[pos.Count];
+
+			for(int y = 0; y < positive.Length; y++){
+				positive[y] = pos.Peek();
+				pos.Dequeue();
+			}
+
+			int j = 0;
+
+			for(int i = 0; i < positive.Length; i++){
+				if(positive[i] != i + 1){
+					return i + 1;
+				}
+
+				j = i;
+			}
+
+			return j + 2;
+
+		}
+
+		public static int tripletSumInArray(int[] arr, int target){
+
+			int temp = 0;
+			int temp2 = 0;
+			int sum = 0;
+
+			Sortt(arr);
+
+			for(int x = 0; x < arr.Length; x++){
+				sum = sum + arr[x];
+			}
+
+			for(int left = 0; left < arr.Length; left++){
+				for(int right = arr.Length - 1; right > left; right--){
+					if(sum > target){
+						temp = arr[right];
+						sum = sum - arr[right];
+					}
+					else if(sum == target){
+						return sum;
+					}
+					else if(sum < target){
+						temp2 = arr[right];
+						arr[right] = temp;
+						temp = temp2;
+
+						sum = sum - temp;
+
+						sum = sum + arr[right];
+
+					}
+				}
+			}
+
+			return -1;
+
+		}		
+
+		public static int[] stockSpanProblem(int[] arr){
+			int[] spannedArr = new int[arr.Length];
+
+			int span = 0;
+
+			for(int i = 0; i < arr.Length; i++){
+				if(i == 0){
+					span++;
+					spannedArr[i] = span;
+					span = 0;
+
+				}
+				else if(arr[i] < arr[i - 1]){
+					span++;
+					spannedArr[i] = span;
+					span = 0;
+				}	
+				else if(arr[i] > arr[i - 1]){
+					for(int j = i; j >= 0; j--){
+						if(j == i){
+							span++;
+						}
+						else if(arr[j] < arr[i]){
+							span++;
+						}
+						else if(arr[j] > arr[i]){
+							break;
+						}
+					}
+					spannedArr[i] = span;
+					span = 0;
+
+				}
+			}
+
+			return spannedArr;
+		}
+
+		public static int minimumNumberOfJumps(int[] arr){
+			int count = -1;
+
+			for(int i = 0; i < arr.Length; i = i + arr[i]){
+
+				if(arr[i] > arr.Length - 1 - i){
+					count++;
+					break;
+				}
+				else if(arr[i] == 0){
+					count++;
+					break;
+				}
+				else{
+					count++;
+				}
+				
+			}
+
+			return count;
 		}
 
 		public static int minimizeTheTowerHeights(int[] arr,int target){
