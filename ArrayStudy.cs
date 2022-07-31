@@ -11,11 +11,69 @@ namespace ArrayStudy {
     	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {8,3,1,2};
-		    
-		    Console.Write(maxSumOfConfiguration(nums));
+			int[] nums = new int[] {3, 9, 12, 16, 20};
+
+		    Console.Write(minimizeTheTowerHeights(nums,3));
 
 			Console.ReadKey();
+		}
+
+		public static int minimizeTheTowerHeights(int[] arr,int target){
+			Queue<int> theDiff = new Queue<int>();
+
+			for(int i = 0; i < arr.Length; i++){
+				if(arr[i] > target){
+					arr[i] = arr[i] - target;
+				}
+				else
+				{
+					arr[i] = arr[i] + target;
+				}
+				theDiff.Enqueue(arr[i]);
+			}
+
+			
+			int[] minAndMax = new int[theDiff.Count];
+
+			for(int x = 0; x < minAndMax.Length; x++){
+				minAndMax[x] = theDiff.Peek();
+				theDiff.Dequeue();
+			}
+			
+
+			Sortt(minAndMax);
+
+			int result = minAndMax[minAndMax.Length - 1] - minAndMax[0];
+
+			return result;
+
+		}
+
+		public static int minNumberOfPlatforms(int[] arr, int[] dep){
+			Queue<int> platNums = new Queue<int>();
+
+			int count = 1;
+			for(int i = 1, j = 0; i < arr.Length; i++, j++){
+				if(arr[i] < dep[j]){
+					count++;
+					platNums.Enqueue(count);
+				}
+				else
+				{
+					count = 1;
+				}
+			}
+
+			int[] plats = new int[platNums.Count];
+
+			for(int x = 0; x < plats.Length; x++){
+				plats[x] = platNums.Peek();
+				platNums.Dequeue();
+			}
+
+			Sortt(plats);
+
+			return plats[plats.Length - 1];
 		}
 
 		public static int maxSumOfConfiguration(int[] arr){
