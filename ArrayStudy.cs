@@ -11,11 +11,38 @@ namespace ArrayStudy {
     	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {-1,-2,-3,-4};
+			int[] nums = new int[] {2, 3, 4, 5, -1, 0};
 		    
-		    Console.Write(findFactorialBigNumber(10));
+		    Console.Write(maximumProductSubarray(nums));
 
 			Console.ReadKey();
+		}
+
+		public static int maximumProductSubarray(int[] arr){
+			Queue<int> nums = new Queue<int>();
+
+			//Where I store the temprary product
+			int product = 1;
+
+			for(int i = 0; i < arr.Length; i++){
+				product = 1;
+				for(int j = i; j < arr.Length; j++){
+					product = product * arr[j];
+					nums.Enqueue(product);
+				}
+			}
+
+			int[] maxes = new int[nums.Count];
+
+			for(int x = 0; x < maxes.Length; x++){
+				maxes[x] = nums.Peek();
+				nums.Dequeue();
+			}
+
+			Sortt(maxes);
+
+			return maxes[maxes.Length - 1];
+
 		}
 
 		public static int findFactorialBigNumber(int num){
