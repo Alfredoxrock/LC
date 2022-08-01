@@ -11,10 +11,10 @@ namespace ArrayStudy {
     	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			//int[] nums = new int[] {11, 1, 13, 21, 3, 7};
-			//int[] nums2 = new int[] {11, 3, 7, 1};
+			int[] nums = new int[] {1, 2, 3, 4, 5, 6};
+			int[] nums2 = new int[] {1, 2, 4,9};
 
-			Console.WriteLine("Monkey");
+			Console.WriteLine(arraySubsetOfAnotherArray(nums,nums2));
 
 			Console.ReadKey();
 		}
@@ -23,7 +23,7 @@ namespace ArrayStudy {
 			//Check wheather arary2 is a subset of array1
 
 			//mubool
-			bool result;
+			bool result = false;
 
 			for(int i = 0; i < array2.Length; i++){
 				for(int j = 0; j < array1.Length; j++){
