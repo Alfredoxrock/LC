@@ -11,11 +11,130 @@ namespace ArrayStudy {
     	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {1,2,3,4,5};
+			//int[] nums = new int[] {11, 1, 13, 21, 3, 7};
+			//int[] nums2 = new int[] {11, 3, 7, 1};
 
-		    Console.WriteLine(smallerPositiveMissingNumber(nums));
+			Console.WriteLine("Monkey");
 
 			Console.ReadKey();
+		}
+
+		public static bool arraySubsetOfAnotherArray(int[] array1, int[] array2){
+			//Check wheather arary2 is a subset of array1
+
+			//mubool
+			bool result;
+
+			for(int i = 0; i < array2.Length; i++){
+				for(int j = 0; j < array1.Length; j++){
+					if(array2[i] == array1[j]){
+						result = true;
+						break;
+					}
+					else{
+						result = false;
+					}
+				}
+
+				if(result == false){
+					break;
+				}
+			}
+
+			return result;
+
+		}
+
+		public static int[] spirallyTraversingAMatrix(int[,] matrix){
+			int left = 0;
+			int right = matrix.GetLength(1);
+			int top = 0;
+			int bottom = matrix.GetLength(0);
+
+			Queue<int> q = new Queue<int>();
+
+			//Here is where the code is at
+			while(left < right && top < bottom){
+
+				//From left to right
+				for(int i = left; i < right; i++){
+					q.Enqueue(matrix[top,i]);
+				}
+				top += 1;
+
+				//From top to bottom
+				for(int j = top; j < bottom; j++){
+					q.Enqueue(matrix[j,right - 1]);
+				}
+				right -= 1;
+
+				//Double check in case matrix is not square
+				if(left < right && top < bottom){
+
+				}
+				else{
+					break;
+				}
+
+				//From right to left
+				for(int k = right - 1; k > left - 1; k--){
+					q.Enqueue(matrix[bottom - 1,k]);
+				}
+				bottom -= 1;
+
+				//From botom to top
+				for(int h = bottom - 1; h > top - 1; h--){
+					q.Enqueue(matrix[h,left]);
+				}
+				left += 1;
+
+			}
+
+			int[] result = new int[q.Count];
+			for(int a = 0; a < result.Length; a++){
+				result[a] = q.Peek();
+				q.Dequeue();
+			}
+
+			return result;
+		}
+		
+
+		public static int rowWithMax1s(int[,] arr){
+			//Return the row with max numbers 1s
+
+			int[,] maxes = new int[4,2] {
+				{0,0},
+				{1,0},
+				{2,0},
+				{3,0}
+			};
+
+			int count = 0;
+			for(int i = 0; i < arr.GetLength(0); i++){
+				for(int j = 0; j < arr.GetLength(1); j++){
+					count = count + arr[i,j];
+				}
+				maxes[i,1] = count;
+				count = 0;
+			}
+
+			int temp = 0;
+			int temp2 = 0;
+			//Sort in ascending order the array
+			for(int x = 0; x < maxes.GetLength(0) - 1; x++){
+				for(int y = x + 1; y < maxes.GetLength(0); y++){
+					if(maxes[x,1] > maxes[y,1]){
+						temp = maxes[x,1];
+						temp2 = maxes[x,0];
+						maxes[x,1] = maxes[y,1];
+						maxes[x,0] = maxes[y,0];
+						maxes[y,1] = temp;
+						maxes[y,0] = temp2;
+					}
+				}
+			}
+			return maxes[3,0];
 		}
 
 		public static int smallerPositiveMissingNumber(int[] arr){
