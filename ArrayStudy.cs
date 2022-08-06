@@ -8,15 +8,54 @@ namespace ArrayStudy {
 
     public class Testing {
 
+    	///<summary>
+    	///Problems to Solve
+    	///</summary>
+
     	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			int[] nums = new int[] {1, 2, 3, 4, 5, 6};
-			int[] nums2 = new int[] {1, 2, 4,9};
+			string[] myArr = new string[] {"geeksforgeeks", "geeks", "geek",
+         "geezer"};
 
-			Console.WriteLine(arraySubsetOfAnotherArray(nums,nums2));
+			Console.WriteLine(longestCommonPrefix(myArr));
 
 			Console.ReadKey();
+		}
+
+		public static string longestCommonPrefix(string[] arr){
+			if(arr.Length == 0) return "";
+
+			string prefix = arr[0];
+
+			for(int i = 0; i < arr.Length; i++){
+				while(arr[i].IndexOf(prefix) != 0){
+					prefix = prefix.Substring(0, prefix.Length - 1);
+				}
+			}
+
+			return prefix;
+
+		}
+
+		public static string reverseStringNotWords(string word){
+			string[] rev = word.Split('.');
+			string temp;
+			string result = "";
+
+			for(int i = 0, j = rev.Length - 1; i < j; i++,j--){
+				temp = rev[i];
+				rev[i] = rev[j];
+				rev[j] = temp;
+			}
+
+			for(int x = 0; x < rev.Length - 1; x++){
+				result += rev[x] + ".";
+			}
+
+			result += rev[rev.Length - 1];
+
+			return result;
 		}
 
 		public static bool arraySubsetOfAnotherArray(int[] array1, int[] array2){
