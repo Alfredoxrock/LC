@@ -15,12 +15,62 @@ namespace ArrayStudy {
     	//https://www.geeksforgeeks.org/top-50-array-coding-problems-for-interviews/
 	    static void Main(string[] args)
 		{
-			string[] myArr = new string[] {"geeksforgeeks", "geeks", "geek",
-         "geezer"};
-
-			Console.WriteLine(longestCommonPrefix(myArr));
+			integerToRomanNumber(120);
 
 			Console.ReadKey();
+		}
+
+		public static void integerToRomanNumber(int number){
+			string num = number.ToString();
+			Dictionary<int,char> romans = new Dictionary<int,char>(){
+				{1,'I'},
+				{5,'V'},
+				{10,'X'},
+				{50,'L'},
+				{100,'C'},
+				{500,'D'},
+				{1000,'M'}
+			};
+
+			for(int i = num.Length - 1; i >= 0; i--){
+				while()
+			}
+			//string result;
+			//continue to work with this one.
+
+		}
+
+		public static int romanNumberToInteger(string roman){
+			Dictionary<char,int> romans = new Dictionary<char,int>() {
+				{'I',1},
+				{'V',5},
+				{'X',10},
+				{'L',50},
+				{'C',100},
+				{'D',500},
+				{'M',1000}
+			};
+
+			int sum = 0;
+			for(int i = 1; i < roman.Length; i++){
+				char pointer2 = roman[i];
+				char pointer1 = roman[i - 1];
+				if(romans[pointer1] > romans[pointer2]){
+					sum = sum + romans[pointer1];
+				}
+			    if(romans[pointer1] == romans[pointer2]){
+					sum = sum + romans[pointer1];
+				}
+				if(romans[pointer1] < romans[pointer2])
+				{
+					sum = sum - romans[pointer1];
+				}
+			}
+
+			char last = roman[roman.Length - 1];
+			sum = sum + romans[last];
+			return sum;
+
 		}
 
 		public static string longestCommonPrefix(string[] arr){
